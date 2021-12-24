@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import userData from "../data/data.js"
 import { Field, Form } from "react-final-form"
+import { FORM_ERROR } from "final-form"
 
 export default function Contact() {
   return (
@@ -21,7 +22,7 @@ export default function Contact() {
                 Fill in the details and I'll get back to you as soon as I can.
               </p>
             </header>
-            <div className="icons-container inline-flex flex-col my-20">
+            <div className="icons-container inline-flex flex-col md:my-20 my-10 mb-4">
               <div className="flex flex-row items-center space-x-6 rounded-md border border-[#02044A] hover:border hover:border-blue-500 p-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -71,23 +72,20 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-            <div className="social-icons flex flex-row space-x-8">
+            <div className="social-icons flex flex-row space-x-8 p-4 md:p-0 mb-4 md:mb-0">
               <a
-                href={userData.socialLinks.facebook}
+                href={userData.socialLinks.github}
                 className="h-10 w-10 rounded-full hover:bg-blue-500 flex items-center justify-center cursor-pointer"
               >
                 <svg
+                  xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
+                  fill="currentColor"
                   className="text-gray-50"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
                 >
-                  <path
-                    d="M9.19795 21.5H13.198V13.4901H16.8021L17.198 9.50977H13.198V7.5C13.198 6.94772 13.6457 6.5 14.198 6.5H17.198V2.5H14.198C11.4365 2.5 9.19795 4.73858 9.19795 7.5V9.50977H7.19795L6.80206 13.4901H9.19795V21.5Z"
-                    fill="currentColor"
-                  />
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
                 </svg>
               </a>
               <a
@@ -110,36 +108,6 @@ export default function Contact() {
                   />
                 </svg>
               </a>
-              <a
-                href={userData.socialLinks.instagram}
-                className="h-10 w-10 rounded-full hover:bg-blue-500 flex items-center justify-center cursor-pointer"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  className="text-gray-50"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </a>
             </div>
           </div>
           <ContactForm />
@@ -155,124 +123,132 @@ const ErrorDisplay = ({ message }) => (
 
 const required = value => (value ? undefined : "Please fill in detail")
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
 const ContactForm = () => {
-  const [error, setError] = useState()
-  const [success, setSuccess] = useState()
+  const [isSubmittedForm, setIsSubmittedForm] = useState(false)
 
-  const onSubmit = async values => {
-    // console.log(values)
-    // setError(null)
-    // setSuccess(null)
-    // try {
-    //   const response = await formApi(values)
-    //   console.log(response)
-    //   if (response.data.error) {
-    //     setError({ message: response.data.error, data: response.status })
-    //   }
-    //   setSuccess({
-    //     message: "Thank you for contacting me. I'll get back to you.",
-    //     data: response.data,
-    //   })
-    // } catch (err) {
-    //   console.log(err)
-    //   setError({
-    //     message:
-    //       "This form doesn't work. Please reach me via my email - chizonwazuo@yahoo.com",
-    //     data: err,
-    //   })
-    // }
-    // // window.alert(JSON.stringify(response, 0, 2));
+  const onSubmit = values => {
+    let request = new Request("https://app.99inbound.com/api/e/zJ0g2v8G")
+
+    return fetch(request, {
+      method: "post",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          return {
+            [FORM_ERROR]: "Something went wrong please try again...",
+          }
+        }
+        setIsSubmittedForm(true)
+      })
+      .catch(err => {
+        setIsSubmittedForm(false)
+        return {
+          [FORM_ERROR]: "Something went wrong please try again...",
+        }
+      })
   }
   return (
     <Form onSubmit={onSubmit}>
-      {({ handleSubmit, submitting, form, values }) => (
-        <form
-          onSubmit={handleSubmit}
-          className="form rounded-lg bg-white p-4 flex flex-col"
-        >
-          {success && (
-            <p className="text-sm text-green-500 border-green-500 bg-green-200 mx-4 px-2 my-2 py-2 rounded-md">
-              {success.message} Click{" "}
-              <b style={{ textDecoration: "underline" }}>
-                <a href="/responses">here </a>
-              </b>
-              to view responses
+      {({ handleSubmit, submitting, form, values, submitError }) => (
+        <>
+          {isSubmittedForm && (
+            <p className="text-sm h-min text-green-500 border-green-500 bg-green-200 mx-0 md:mx-4 px-2 my-2 py-2 rounded-md">
+              Thanks for contacting me. I'll get back to you shortly.
             </p>
           )}
-          {error && (
-            <p className="text-sm text-red-500 border-red-500 bg-red-200 mx-4 px-2 my-2 py-2 rounded-md">
-              {error.message}
-            </p>
-          )}
-          <label htmlFor="name" className="text-md text-gray-600 mx-4">
-            {" "}
-            Your Name
-          </label>
-          <Field name="name" type="text" validate={required}>
-            {({ input, meta }) => (
-              <>
-                <input
-                  {...input}
-                  className={`font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 ${
-                    meta.error && meta.touched && `border-red-500`
-                  }`}
-                />
-                {meta.error && meta.touched && (
-                  <ErrorDisplay message={meta.error} />
+          {!isSubmittedForm && (
+            <form
+              onSubmit={handleSubmit}
+              className="form rounded-lg bg-white p-4 flex flex-col"
+            >
+              {submitError && (
+                <p className="text-sm text-red-500 border-red-500 bg-red-200 mx-0 md:mx-4 px-2 my-2 py-2 rounded-md">
+                  {submitError}
+                </p>
+              )}
+              <label
+                htmlFor="name"
+                className="text-sm text-gray-600 mx-0 md:mx-4"
+              >
+                {" "}
+                Your Name
+              </label>
+              <Field name="name" type="text" validate={required}>
+                {({ input, meta }) => (
+                  <>
+                    <input
+                      {...input}
+                      className={`font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-0 md:mx-4 focus:ring-2 focus:border-none ring-blue-500 ${
+                        meta.error && meta.touched && `border-red-500`
+                      }`}
+                    />
+                    {meta.error && meta.touched && (
+                      <ErrorDisplay message={meta.error} />
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </Field>
+              </Field>
 
-          <label htmlFor="email" className="text-sm text-gray-600 mx-4 mt-4">
-            Email
-          </label>
-          <Field name="email" type="email" validate={required}>
-            {({ input, meta }) => (
-              <>
-                <input
-                  {...input}
-                  className={`font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 ${
-                    meta.error && meta.touched && `border-red-500`
-                  }`}
-                />
-                {meta.error && meta.touched && (
-                  <ErrorDisplay message={meta.error} />
+              <label
+                htmlFor="email"
+                className="text-sm text-gray-600 mx-0 md:mx-4 mt-4"
+              >
+                Email
+              </label>
+              <Field name="email" type="email" validate={required}>
+                {({ input, meta }) => (
+                  <>
+                    <input
+                      {...input}
+                      className={`font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-0 md:mx-4 focus:ring-2 focus:border-none ring-blue-500 ${
+                        meta.error && meta.touched && `border-red-500`
+                      }`}
+                    />
+                    {meta.error && meta.touched && (
+                      <ErrorDisplay message={meta.error} />
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </Field>
-          <label htmlFor="message" className="text-sm text-gray-600 mx-4 mt-4">
-            Message
-          </label>
-          <Field name="message" type="text" validate={required}>
-            {({ input, meta }) => (
-              <>
-                <textarea
-                  rows="4"
-                  {...input}
-                  {...input}
-                  className={`font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-4 focus:ring-2 focus:border-none ring-blue-500 ${
-                    meta.error && meta.touched && `border-red-500`
-                  }`}
-                ></textarea>
-                {meta.error && meta.touched && (
-                  <ErrorDisplay message={meta.error} />
+              </Field>
+              <label
+                htmlFor="message"
+                className="text-sm text-gray-600 mx-0 md:mx-4 mt-4"
+              >
+                Message
+              </label>
+              <Field name="message" type="text" validate={required}>
+                {({ input, meta }) => (
+                  <>
+                    <textarea
+                      rows="4"
+                      {...input}
+                      {...input}
+                      className={`font-light rounded-md border focus:outline-none py-2 mt-2 px-1 mx-0 md:mx-4 focus:ring-2 focus:border-none ring-blue-500 ${
+                        meta.error && meta.touched && `border-red-500`
+                      }`}
+                    ></textarea>
+                    {meta.error && meta.touched && (
+                      <ErrorDisplay message={meta.error} />
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </Field>
-          <button
-            type="submit"
-            className="bg-blue-500 rounded-md w-1/2 mx-4 mt-8 py-2 text-gray-50 text-xs font-bold"
-            disabled={submitting}
-            // onClick={handleSubmit}
-          >
-            {submitting ? "submitting..." : "Send Message"}
-          </button>
-        </form>
+              </Field>
+              <button
+                type="submit"
+                className="bg-blue-500 rounded-md w-1/2 mx-4 mt-8 py-2 text-gray-50 text-xs font-bold"
+                disabled={submitting}
+              >
+                {submitting ? "submitting..." : "Send Message"}
+              </button>
+            </form>
+          )}
+        </>
       )}
     </Form>
   )
