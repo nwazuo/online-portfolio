@@ -5,4 +5,4 @@
  */
 
 // You can delete this file if you're not using it
-import("./src/styles/globals.css")
+// import("./src/styles/globals.css")

@@ -1,4 +1,5 @@
 import React from "react"
+import "../styles/globals.css"
 
 import Seo from "../components/seo"
 import Navbar from "../components/Navbar"
