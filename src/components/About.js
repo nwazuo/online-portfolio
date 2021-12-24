@@ -1,5 +1,5 @@
-import React from 'react';
-import userData from '../data/data.js';
+import React from "react"
+import userData from "../data/data.js"
 
 export default function AboutMe() {
   return (
@@ -13,9 +13,9 @@ export default function AboutMe() {
         <div className="text-container max-w-6xl mx-auto pt-20">
           <p
             className="leading-loose text-2xl md:text-4xl font-semibold  mx-4"
-            style={{ lineHeight: '3rem' }}
+            style={{ lineHeight: "3rem" }}
           >
-            {userData.about.title}. Currently working at{' '}
+            {userData.about.title}. Currently working at{" "}
             <a
               className="bg-red-500 rounded-md px-2 py-1 text-white"
               href={userData.about.currentProjectUrl}
@@ -34,13 +34,13 @@ export default function AboutMe() {
                 Contact
               </h1>
               <p className="text-lg text-gray-500 mt-4 dark:text-gray-300">
-                For any sort of help / enquiry, shoot a{' '}
+                For any sort of help / enquiry, shoot a{" "}
                 <a
                   href={`mailto:${userData.email}`}
                   className="text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300"
                 >
                   mail
-                </a>{' '}
+                </a>{" "}
                 and I'll get back..
               </p>
             </div>
@@ -50,14 +50,14 @@ export default function AboutMe() {
               </h1>
               <p className="text-lg text-gray-500 mt-4 dark:text-gray-300">
                 I'm open to working on impactful projects. If you see me as a
-                good fit, check my{' '}
+                good fit, check my{" "}
                 <a
                   href={userData.resumeUrl}
                   target="__blank"
                   className="text-gray-800 border-b-2 border-gray-800 dark:border-gray-300 font-bold dark:text-gray-300"
                 >
                   CV
-                </a>{' '}
+                </a>{" "}
                 and I'd love to work for you.
               </p>
             </div>
@@ -66,18 +66,6 @@ export default function AboutMe() {
               Social Links
             </h1>
             <div className="mt-4 ml-4">
-              <div className="flex flex-row justify-start items-center ">
-                <a
-                  href={userData.socialLinks.facebook}
-                  className="flex flex-row items-center space-x-4 group"
-                >
-                  <div className="my-4">&rarr;</div>
-                  <p className="text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300">
-                    <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
-                    Facebook
-                  </p>
-                </a>
-              </div>
               <div className="flex flex-row justify-start items-center">
                 <a
                   href={userData.socialLinks.twitter}
@@ -111,18 +99,6 @@ export default function AboutMe() {
                   <p className="text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300">
                     <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-24 group-hover:translate-x-0 transition duration-300"></div>
                     LinkedIn
-                  </p>
-                </a>
-              </div>
-              <div className="flex flex-row justify-start items-center">
-                <a
-                  href={userData.socialLinks.twitter}
-                  className="flex flex-row items-center space-x-4 group"
-                >
-                  <div className="my-4">&rarr;</div>
-                  <p className="text-lg text-gray-500 font-mono relative overflow-hidden dark:text-gray-300">
-                    <div className="absolute h-0.5 w-full bg-gray-400 bottom-0 transform -translate-x-28 group-hover:translate-x-0 transition duration-300"></div>
-                    Instagram
                   </p>
                 </a>
               </div>
@@ -178,5 +154,5 @@ export default function AboutMe() {
         </div>
       </div>
     </section>
-  );
+  )
 }
