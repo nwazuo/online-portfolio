@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Chizaram Nwazuo`,
-    description: `Developer Portfolio`,
+    description: `Chizaram Nwazuo is a Software Developer/Engineer from Port Harcourt, Nigeria.`,
     author: `@nwazuo`,
     siteUrl: `https://chizo.tech`,
     url: `https://chizo.tech`,
