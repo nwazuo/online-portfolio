@@ -17,7 +17,7 @@ const divStyle = {
 }
 const IndexPage = () => (
   <>
-    <Seo title="UI Developer" />
+    <Seo title="Software Developer" />
     <Navbar />
     <Hero />
     <Projects />
