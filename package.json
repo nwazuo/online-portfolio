@@ -3,7 +3,7 @@
   "private": true,
   "description": "Chizaram's portfolio site",
   "version": "0.1.0",
-  "author": "Chizaram Nwazuo <nwazuochizo@gmail.com>",
+  "author": "Chizaram Nwazuo",
   "dependencies": {
     "autoprefixer": "^10.4.0",
     "final-form": "^4.20.4",
